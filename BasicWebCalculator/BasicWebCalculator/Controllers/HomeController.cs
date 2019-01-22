@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicWebCalculator.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,32 @@ namespace BasicWebCalculator.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(CalculatorModel model, string command)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (command == "add")
+            {
+                model.Result = model.A + model.B;
+            }
+            if (command == "subtraction")
+            {
+                model.Result = model.A - model.B;
+            }
+            if (command == "multiplication")
+            {
+                model.Result = model.A * model.B;
+            }
+            if (command == "division")
+            {
+                model.Result = model.A / model.B;
+            }
+            return View(model);
         }
     }
 }
